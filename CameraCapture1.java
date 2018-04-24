@@ -64,7 +64,9 @@ public class CameraCapture1 extends BarcodeReader {
 		      IplImage  img = converter.convert(frame);
 
 		      if (img != null) {
+		    	//save image to file, currently bug
 		        //cvSaveImage("cc.jpg", img);
+		    	//convert IPL to Buffered Image
 		    	//BufferedImage imgg = IplImageToBufferedImage(img);
 		        grabber.stop();
 		      }
