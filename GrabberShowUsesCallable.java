@@ -18,23 +18,25 @@ import static org.bytedeco.javacpp.opencv_imgcodecs.cvSaveImage;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import javax.imageio.ImageIO;
 
 //import org.bytedeco.javacpp.opencv_core.IplImage;
 
-public class GrabberShow implements Runnable{
+public class GrabberShowUsesCallable implements Callable<String>{
     final int INTERVAL = 100;///you may use interval
     CanvasFrame canvas = new CanvasFrame("Barcode Scanner");
-    private String code;
+    String code;
 
-    public GrabberShow() {
+    public GrabberShowUsesCallable() {
         canvas.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
     }
 
-    public String getCode() {
-    	return code;
-    }
     
     //convert IPL Image to Buffered Image
     public static BufferedImage IplImageToBufferedImage(IplImage src) {
@@ -44,7 +46,7 @@ public class GrabberShow implements Runnable{
 	    return paintConverter.getBufferedImage(frame,1);
 	}
     
-    public void run() {
+    public String call() {
         FrameGrabber grabber = new VideoInputFrameGrabber(0); // 1 for next camera
         OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
         IplImage img;
@@ -62,19 +64,24 @@ public class GrabberShow implements Runnable{
                 	binaryBitmap = new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(imgg)));
                     result = new MultiFormatReader().decode(binaryBitmap);
                     System.out.println(result.getText());
+                    code = result.getText();
                 } catch (NotFoundException e) {
                 	System.out.println("Scanning...");
                 }
                 //scanner's end
                 Thread.sleep(INTERVAL);
             }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return code;
     }
-    public static void main(String[] args) {
-        GrabberShow gs = new GrabberShow();
-        Thread th = new Thread(gs);
-        th.start();
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
+    	GrabberShowUsesCallable gs = new GrabberShowUsesCallable();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Future<String> future = executorService.submit(gs);
+        String cc = future.get();
+        System.out.println("Final result : " + cc);
     }
 }
