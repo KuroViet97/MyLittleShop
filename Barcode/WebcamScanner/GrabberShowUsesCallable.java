@@ -26,7 +26,7 @@ import javax.imageio.ImageIO;
 
 //import org.bytedeco.javacpp.opencv_core.IplImage;
 
-public class GrabberShowUsesCallable extends Barcode implements Callable<String>{
+public class GrabberShowUsesCallable implements Callable<String>{
     final int INTERVAL = 100;///you may use interval
     CanvasFrame canvas = new CanvasFrame("Barcode Scanner");
     String code;
