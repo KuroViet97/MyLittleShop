@@ -61,17 +61,18 @@ public class GrabberShowUsesCallable extends Barcode implements Callable<String>
                 try {
                 	binaryBitmap = new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(imgg)));
                     result = new MultiFormatReader().decode(binaryBitmap);
-                    System.out.println(result.getText());
+                    System.out.println("Result : " + result.getText());
                     code = result.getText();
                 } catch (NotFoundException e) {
-                	System.out.println("Scanning...");
+                	System.out.print(".");
                 }
                 //scanner's end
                 Thread.sleep(INTERVAL);
             }
             
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+        	System.out.print(".");
         }
         return code;
     }
