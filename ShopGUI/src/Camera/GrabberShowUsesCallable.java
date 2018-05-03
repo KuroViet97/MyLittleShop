@@ -28,13 +28,12 @@ import javax.imageio.ImageIO;
 
 public class GrabberShowUsesCallable implements Callable<String>{
     final int INTERVAL = 100;///you may use interval
-    CanvasFrame canvas = new CanvasFrame("Barcode Scanner");
+    public CanvasFrame canvas = new CanvasFrame("Barcode Scanner");
     String code;
 
     public GrabberShowUsesCallable() {
         canvas.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
     }
-
     
     //convert IPL Image to Buffered Image
     public static BufferedImage IplImageToBufferedImage(IplImage src) {
@@ -44,8 +43,8 @@ public class GrabberShowUsesCallable implements Callable<String>{
 	    return paintConverter.getBufferedImage(frame,1);
 	}
     
-    public String call() {
-        FrameGrabber grabber = new VideoInputFrameGrabber(0); // 1 for next camera
+    public String call() throws org.bytedeco.javacv.FrameGrabber.Exception {
+        FrameGrabber grabber = FrameGrabber.createDefault(0); // 1 for next camera
         //grabber.setImageHeight(320);
         //grabber.setImageWidth(240);
         OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
@@ -76,6 +75,12 @@ public class GrabberShowUsesCallable implements Callable<String>{
             e.printStackTrace();
         	//System.out.print(".");
         }
+        try {
+			grabber.close();
+		} catch (org.bytedeco.javacv.FrameGrabber.Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         //test close cam after scan using canvas dispose
         canvas.dispose();
         return code;

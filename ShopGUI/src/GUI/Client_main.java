@@ -92,6 +92,8 @@ public class Client_main {
 		frame.getContentPane().setLayout(gridBagLayout);
 		frame.getContentPane().setBackground(Color.PINK);
 		
+		
+		
 		lblNewLabel = new JLabel("My Little Shop");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.gridwidth = 3;
@@ -118,9 +120,21 @@ public class Client_main {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 		        new Thread(() -> {
-					String code = "haha";
-					model.addRow(new Object[] {row,0,code,1});
-					
+		        	GrabberShowUsesCallable gs = new GrabberShowUsesCallable();
+		    		//GrabberShow gs = new GrabberShow();
+		            ExecutorService executorService = Executors.newSingleThreadExecutor();
+		            Future<String> future = executorService.submit(gs);
+		            String cc;
+					try {
+						//Add data to table
+						cc = future.get();
+			            model.addRow(new Object[] {row,0,cc,0});
+			            row=row+1;
+			            Thread.currentThread().stop();
+					} catch (InterruptedException | ExecutionException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}).start();
 			}
 		});
@@ -131,7 +145,7 @@ public class Client_main {
 		gbc_btnNewButton.gridy = 1;
 		frame.getContentPane().add(btnNewButton, gbc_btnNewButton);
 		
-		btnNewButton_1 = new JButton("Refresh");
+		btnNewButton_1 = new JButton("Submit");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			    int rowCount = model.getRowCount();
