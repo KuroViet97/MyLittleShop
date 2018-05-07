@@ -10,7 +10,7 @@ package com.product.service;
 
 public class MylittleShopSAXExceptionException extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1525510984040L;
+    private static final long serialVersionUID = 1525679153819L;
     
     private com.product.service.MylittleShopStub.MylittleShopSAXException faultMessage;
 
