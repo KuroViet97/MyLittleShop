@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<data>
+	<product>
+		<name>salad</name>
+		<price>10</price>
+		<amount>100</amount>
+	</product>
+	<product>
+		<name>beef</name>
+		<price>20</price>
+		<amount>100</amount>
+	</product>
+	<product>
+		<name>rice</name>
+		<price>5</price>
+		<amount>20</amount>
+	</product>
+</data>
