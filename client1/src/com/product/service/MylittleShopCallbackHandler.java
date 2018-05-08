@@ -98,6 +98,22 @@
             public void receiveErrorgetData1(java.lang.Exception e) {
             }
                 
+           /**
+            * auto generated Axis2 call back method for validateInfo method
+            * override this method for handling normal response from validateInfo operation
+            */
+           public void receiveResultvalidateInfo(
+                    com.product.service.MylittleShopStub.ValidateInfoResponse result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from validateInfo operation
+           */
+            public void receiveErrorvalidateInfo(java.lang.Exception e) {
+            }
+                
                // No methods generated for meps other than in-out
                 
            /**

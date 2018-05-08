@@ -10,7 +10,7 @@ package com.product.service;
 
 public class MylittleShopIOExceptionException extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1525679153787L;
+    private static final long serialVersionUID = 1525745256615L;
     
     private com.product.service.MylittleShopStub.MylittleShopIOException faultMessage;
 

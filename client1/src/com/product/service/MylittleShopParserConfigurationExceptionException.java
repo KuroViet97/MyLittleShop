@@ -10,7 +10,7 @@ package com.product.service;
 
 public class MylittleShopParserConfigurationExceptionException extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1525679153741L;
+    private static final long serialVersionUID = 1525745256547L;
     
     private com.product.service.MylittleShopStub.MylittleShopParserConfigurationException faultMessage;
 
