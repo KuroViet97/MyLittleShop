@@ -1,0 +1,9 @@
+All files here are auto-generated whenever we create client-service after creating
+web-service from server side by using Axis2
+
+MylittleShopStub.java is a client model of the service. It provides WSDL Service that
+understands and responds to XML documents submitted to the server.
+
+MylittleShopStub.java converts java objects (converts parameters) in client requests
+to XML messages and sends to the server endpoind. The server receives response in XML
+format, creates the server response java object and returns it to the caller.
